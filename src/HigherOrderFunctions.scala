@@ -48,11 +48,12 @@ class HigherOrderFunctions {
     * @param f   lambda maps A and B to B
     * @tparam A generic type A
     * @tparam B generic type B
-    * @return type B
+    * @return generic type B  .
     */
   def foldRight[A, B](lst: List[A], bc: B, f: (A, B) => B): B = lst match {
     case Nil => bc
     case h :: t => f(h, foldRight(t, bc, f))
   }
+
 
 }
