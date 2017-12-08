@@ -55,5 +55,6 @@ class HigherOrderFunctions {
     case h :: t => f(h, foldRight(t, bc, f))
   }
 
-
 }
+
+
