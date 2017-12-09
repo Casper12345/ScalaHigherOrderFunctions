@@ -36,23 +36,73 @@ object List {
       }
 
   }
+
   // exercise 3.5
   def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
-      case Nil => Nil
-      case Cons(h, t) =>
-        if (f(h)) {
-          Cons(h, dropWhile(t,f))
-        } else {
-          dropWhile(t, f)
-        }
+    case Nil => Nil
+    case Cons(h, t) =>
+      if (f(h)) {
+        Cons(h, dropWhile(t, f))
+      } else {
+        dropWhile(t, f)
+      }
 
   }
 
   // exercise 3.6
-  def init[A](l: List[A]): List[A] = {
-      Nil
+  def init[A](l: List[A]): List[A] = l match {
+    case Nil => Nil
+    case Cons(_, Nil) => Nil
+    case Cons(h, t) =>
+      Cons(h, init(t))
+  }
+
+  // fold right
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    as match {
+      case Nil => z
+      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    }
+  }
+
+  // exercise 3.9
+  def length[A](as: List[A]): Int = {
+    def map(as: List[A]): List[Int] = as match {
+      case Nil => Nil
+      case Cons(_, t) =>
+        Cons(1, map(t))
+    }
+
+    foldRight(map(as), 0)(_ + _)
+  }
+
+  // map
+  def map[A, B](xs: List[A], f: A => B): List[B] = xs match {
+    case Nil => Nil
+    case Cons(h, t) =>
+      Cons(f(h), map(t, f))
+  }
+
+  // filter
+  def filter[A](xs: List[A], f: A => Boolean): List[A] = xs match {
+    case Nil => Nil
+    case Cons(h, t) =>
+      if (f(h)) {
+        Cons(h, filter(t, f))
+      } else {
+        filter(t, f)
+      }
+  }
+
+  // exercise 3.10
+  def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
+    case Nil => z
+    case Cons(h, t) =>
+      foldLeft(t, f(h, z))
 
   }
+
+
 }
 
 

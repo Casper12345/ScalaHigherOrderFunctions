@@ -17,7 +17,7 @@ class FunctionProgramming2 {
   }
 
   // exercise 2.2
-  def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = { // 5-2 = 3
+  def isSorted[A](as: Array[A], ordered: (A, A) => Boolean): Boolean = {
     def helper(as: Array[A], i: Int): Boolean = {
       if (i > as.length - 2) {
         true
